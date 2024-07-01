@@ -23,7 +23,7 @@ class awsElasticache {
       return new Promise(async (resolve, reject) => {
         console.log("set() called");  
         const val_json = JSON.stringify(val);
-        var cmd_set = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} '${val_json}'`;
+        var cmd_set = `${this.redis_cli_script} --tls -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} set ${key} '${val_json}'`;
         console.log("cmd_set: ", cmd_set);
         await this.execute_child_process(cmd_set);
         resolve();
@@ -34,7 +34,7 @@ class awsElasticache {
 
       return new Promise(async (resolve, reject) => {
         console.log("get() called");  
-        var cmd_get = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} get ${key}`;
+        var cmd_get = `${this.redis_cli_script} --tls -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} get ${key}`;
         console.log("cmd_get: ", cmd_get);
         let stdout_json = await this.execute_child_process(cmd_get);
         var result = null;
@@ -51,7 +51,7 @@ class awsElasticache {
 
       return new Promise(async (resolve, reject) => {
         console.log("del() called");  
-        var cmd_del = `${this.redis_cli_script} -c -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} del ${key}`;
+        var cmd_del = `${this.redis_cli_script} --tls -h ${this.redis_cluster_host} -p ${this.redis_cluster_port} del ${key}`;
         console.log("cmd_del: ", cmd_del);
         await this.execute_child_process(cmd_del);
 
